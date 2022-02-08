@@ -1,0 +1,63 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>ART GALLERY</title>
+  <link href="/style.css" type="text/css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  {{#if info.logged}}
+  <div class="navi_bar d-flex justify-content-around text-light">
+    <a class="text-light" href="/">Home</a>
+    <a class="text-light" href="/secure/account">Account</a>
+    <a class="text-light" href="/secure">My Products</a>
+    <a class="text-light" href="/logout">Logout</a>
+  </div>
+  {{/if}}
+
+  <div class="title_bar">
+    <h1>ART GALLERY</h1>
+  </div>
+  <div class="d-flex justify-content-end">
+    {{#if info.logged}}
+    <p><a href="/logout" class="btn btn-danger">Log Out</a></p>
+    {{else}}
+    <p><a href="/login">Log in</a></p>
+    {{/if}}
+  </div>
+  {{!-- <p>Logged in as: {{info.username}}</p> --}}
+  <div class="search">
+    <input class="form-control" id="searchString" placeholder="Enter text to Search" />
+    <button class="btn btn-primary" onclick="search()">Search</button>
+  </div>
+
+
+  <hr />
+  <h3>Search Result for: <span id="searchFor"></span>
+  </h3>
+
+  <div class="card_container">
+    {{#each .}}
+    <div class="card" onclick="window.location = `/product/{{id}}`">
+      <img class="product_image" src="/uploads/{{image}}" />
+      <p class="bold">{{productName}}</p>
+      <p>€ {{price}}</p>
+      <p>{{description}}</p>
+      <p class="bold">Status: {{sellingStatus}}</p>
+      <a href="/seller/{{sellerName}}">Sold By: {{sellerName}}</a>
+      <button class="know_more">Know more...</button>
+    </div>
+    {{/each}}
+  </div>
+</body>
+
+
+</html>

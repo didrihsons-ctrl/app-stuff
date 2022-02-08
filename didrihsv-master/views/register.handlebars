@@ -1,0 +1,83 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Create an Account</title>
+  <link href="style.css" type="text/css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <!-- JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <p style="font-size:30px;">Create an Account</p>
+  {{#if msg}}
+  <p class="msg">{{msg}}</p>
+  {{/if}}
+  <form action="/register" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+      <p>Username:<br />
+        <input class="form-control" type="text" name="user" placeholder="your preferred username" value="" required>
+      </p>
+      <p>Email:<br />
+        <input class="form-control" type="email" name="email" placeholder="your email" value="" required>
+      </p>
+      <p>Phone:<br />
+        <input class="form-control" name="phone" placeholder="your phone number" value="">
+      </p>
+      <p>Address:<br />
+        <input class="form-control" name="address" placeholder="your address" value="">
+      </p>
+      <p>Password:<br />
+        <input id="password" class="form-control" type="password" name="pass" placeholder="your chosen password"
+          value="" required><span class="pl-4" id="pass_valid"></span></p>
+      <p id="pass_error"></p>
+      <p><input type="submit" value="SignUp" class="btn btn-primary"></p>
+
+    </div>
+  </form>
+  <script>
+    document.getElementById('password').addEventListener('input', function (e) {
+      console.log(passwordStrength(e.target.value))
+      if (e.target.value.length > 8 && passwordStrength(e.target.value)) {
+        document.getElementById('pass_error').innerHTML = "";
+        document.getElementById('pass_valid').innerHTML = "&check;"
+        document.getElementById('pass_valid').style.fontSize = "20px;"
+        document.getElementById('pass_valid').style.color = "green"
+
+      }
+      else {
+        document.getElementById('pass_error').innerHTML = "**Password must contain uppercase lowercase  number and more than 8 characters";
+        document.getElementById('pass_error').style.color = "red";
+        document.getElementById('pass_error').style.fontWeight = "400";
+        document.getElementById('pass_valid').innerHTML = ""
+
+      }
+    })
+    function passwordStrength(str) {
+      return str.match(/[a-z]/) && str.match(/[A-Z]/) && str.match(/[0-9]/);
+    }
+
+    const msg = new URLSearchParams(window.location.search).get('msg')
+    if (msg) {
+      alert(msg)
+    }
+
+  </script>
+</body>
+
+</html>

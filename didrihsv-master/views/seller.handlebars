@@ -1,0 +1,125 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>ART GALLERY</title>
+  <link href="/style.css" type="text/css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  {{#if info.logged}}
+  <div class="navi_bar d-flex justify-content-around text-light">
+    <a class="text-light" href="/">Home</a>
+    <a class="text-light" href="/secure/account">Account</a>
+    <a class="text-light" href="/secure">My Products</a>
+    <a class="text-light" href="/logout">Logout</a>
+  </div>
+  {{/if}}
+
+  </div>
+  <div class="title_bar">
+    <h1>ART GALLERY</h1>
+  </div>
+  <div class="d-flex justify-content-end">
+    {{#if info.logged}}
+    <p><a href="/logout" class="btn btn-danger">Log Out</a></p>
+    {{else}}
+    <p><a href="/login">Log in</a></p>
+    {{/if}}
+  </div>
+
+  <hr />
+
+  <center>
+    <h2>All Items by: {{info.sellerName}}</h2>
+  </center>
+
+
+  <div class="card_container">
+    {{#each data}}
+    <div class="card" onclick="gotoRoute({{id}})">
+      <img class="product_image" src="/uploads/{{image}}" />
+      <p class="bold">{{productName}}</p>
+      <p>€ {{price}}</p>
+      <p>{{description}}</p>
+      <p class="bold">Status: {{sellingStatus}}</p>
+    </div>
+    {{/each}}
+  </div>
+  <!-- Footer -->
+  <footer class="page-footer font-small teal pt-4">
+    <hr />
+    <!-- Footer Links -->
+    <div class="container-fluid text-center text-md-left">
+
+      <!-- Grid row -->
+      <div class="row">
+
+        <!-- Grid column -->
+        <div class="col-md-6 mt-md-0 mt-3">
+
+          <!-- Content -->
+          <h5 class="text-uppercase">Art Gallery</h5>
+          <p>Art curated by finest artists in town!!</p>
+
+        </div>
+        <!-- Grid column -->
+
+        <hr class="clearfix w-100 d-md-none pb-3">
+
+        <!-- Grid column -->
+        <div class="col-md-3 mb-md-0 mb-3">
+
+          <!-- Links -->
+          <h5 class="text-uppercase">Links</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a href="/">SHOP</a>
+            </li>
+            <li>
+              <a href="/login">LOGIN</a>
+            </li>
+          </ul>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a href="https://mdbootstrap.com/education/bootstrap/"> artgallery.com</a>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
+</body>
+<script>
+  function search() {
+    location.pathname = `/search/${document.getElementById("searchString").value}`
+  }
+
+  function gotoRoute(id) {
+    const isUserPage = window.location.pathname === "/secure";
+    if (isUserPage) {
+      window.location = `/secure/product/${id}`
+    } else {
+      window.location = `/product/${id}`
+    }
+  }
+</script>
+
+</html>

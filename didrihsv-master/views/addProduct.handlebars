@@ -1,0 +1,106 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Add Product</title>
+  <meta name="description" content="form to add new books">
+  <meta name="author" content="Mark Tyers">
+  <link href="../style.css" type="text/css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="navi_bar d-flex justify-content-around text-light">
+    <a class="text-light" href="/">Home</a>
+    <a class="text-light" href="/secure/account">Account</a>
+    <a class="text-light" href="/secure">My Products</a>
+    <a class="text-light" href="/logout">Logout</a>
+  </div>
+
+  <h1>Add product</h1>
+  {{#if productId}}
+  <p class="alert">Item has been added with id: {{productId}}</p>
+  {{/if}}
+  <form name="productform" action="/secure/addProduct" method="post" enctype="multipart/form-data">
+    <p>Product Name:<br /><input id="productname" class="form-control" name="productName" placeholder="ProductName"
+        autofocus></p>
+    <p id="product_error"></p>
+    <p>Price:<br /><input id="price" class="form-control" name="price" placeholder="price"></p>
+    <p id="price_error"></p>
+    <p>Image:<br /><input id="image" type="file" name="productImage"></p>
+    <p>Description:<br /><textarea id="description" class="form-control" name="description"
+        placeholder="Description"></textarea></p>
+    <p id="desc_error"></p>
+    <p><input id="addproduct" class="btn btn-primary" type="submit" value="Add Product"></p>
+  </form>
+</body>
+<script>
+  let productName, price, description = false;
+  document.getElementById("price_error").innerHTML = "";
+  document.getElementById("addproduct").disabled = true;
+  document.getElementById("price").addEventListener('input', function (e) {
+    if (e.target.value.length === 0) {
+      document.getElementById("addproduct").disabled = true;
+
+      document.getElementById("price_error").innerHTML = "**Price must be filled ";
+      document.getElementById("price_error").style.color = "red";
+    }
+    else {
+      document.getElementById("price_error").innerHTML = "";
+      price = true;
+      checkvalidity();
+    }
+  })
+  document.getElementById("productname").addEventListener('input', function (e) {
+    if (e.target.value.length === 0) {
+      document.getElementById("addproduct").disabled = true;
+
+      document.getElementById("product_error").innerHTML = "**Product name can't be empty";
+      document.getElementById("product_error").style.color = "red";
+    }
+    else {
+      document.getElementById("product_error").innerHTML = "";
+      productName = true;
+      checkvalidity();
+    }
+  })
+  document.getElementById("description").addEventListener('input', function (e) {
+    if (e.target.value.length === 0) {
+      document.getElementById("addproduct").disabled = true;
+
+      document.getElementById("desc_error").innerHTML = "**Description  can't be empty";
+      document.getElementById("desc_error").style.color = "red";
+    }
+    else {
+      document.getElementById("desc_error").innerHTML = "";
+      description = true;
+      checkvalidity();
+    }
+  })
+  document.getElementById("image").addEventListener("change", function () {
+
+    checkvalidity();
+  })
+
+  function checkvalidity() {
+    if (productName && price && description && document.getElementById('image').files.length != 0) {
+
+      document.getElementById("addproduct").disabled = false;
+
+    }
+    else {
+      document.getElementById("addproduct").disabled = true;
+    }
+  }
+
+
+
+</script>
+
+</html>

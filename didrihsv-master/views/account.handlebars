@@ -1,0 +1,53 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Edit Product</title>
+  <meta name="description" content="form to add new books">
+  <meta name="author" content="Mark Tyers">
+  <link href="../style.css" type="text/css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="navi_bar d-flex justify-content-around text-light">
+    <a class="text-light" href="/">Home</a>
+    <a class="text-light" href="/secure/account">Account</a>
+    <a class="text-light" href="/secure">My Products</a>
+    <a class="text-light" href="/logout">Logout</a>
+  </div>
+
+  {{#if msg}}
+  <p class="msg">{{msg}}</p>
+  {{/if}}
+  <button class="btn btn-primary" onclick="location.pathname=`/secure/addProduct`">Add Product</button>
+  <button class="btn btn-primary" onclick="location.pathname=`/secure`">View My Products</button>
+
+  <h3>My Account Details</h3>
+  <form action="/secure/editAccount" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+      <input hidden name="userId" value="{{data.id}}" />
+      <p>Username:<br />
+        <input disabled class="form-control" type="text" name="user" value="{{data.user}}">
+      </p>
+      <p>Email:<br />
+        <input class="form-control" type="email" name="email" placeholder="your email" value="{{data.email}}" required>
+      </p>
+      <p>Phone:<br />
+        <input class="form-control" name="phone" placeholder="your phone number" value="{{data.phone}}">
+      </p>
+      <p>Address:<br />
+        <input class="form-control" name="address" placeholder="your address" value="{{data.address}}">
+      </p>
+      <p><input type="submit" value="Update" class="btn btn-primary"></p>
+    </div>
+  </form>
+</body>
+
+</html>
